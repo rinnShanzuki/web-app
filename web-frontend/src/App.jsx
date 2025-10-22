@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import LandingPage from "./pages/LandingPage";
+import Listing from "./pages/listing";
+import Order from "./pages/order";
+import Navbar from "./components/navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState("landing");
+
+  const goToListing = () => setCurrentPage("listing");
+  const goToOrder = () => setCurrentPage("order");
+  const goToLanding = () => setCurrentPage("landing");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-black text-gray-100">
+      <Navbar
+        onHome={goToLanding}
+        onBrowse={goToListing}
+        onOrder={goToOrder}
+      />
+
+      {/* Add top padding to offset the fixed navbar */}
+      <div className="pt-24">
+        {currentPage === "landing" && (
+          <LandingPage onExplore={goToListing} onOrder={goToOrder} />
+        )}
+        {currentPage === "listing" && (
+          <Listing goBack={goToLanding} goToOrder={goToOrder} />
+        )}
+        {currentPage === "order" && <Order goBack={goToLanding} />}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
