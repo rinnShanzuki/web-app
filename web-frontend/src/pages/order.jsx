@@ -11,7 +11,7 @@ const Order = ({ goBack }) => {
     {
       id: 1,
       name: "Eco Pro",
-      basePrice: 45999,
+      basePrice: 55999,
       image: "https://images.pexels.com/photos/1007410/pexels-photo-1007410.jpeg",
       description: "Efficient electric sedan with premium features"
     },
