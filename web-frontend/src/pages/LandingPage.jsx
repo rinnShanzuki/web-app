@@ -211,7 +211,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Model Info Overlay - Left Aligned (Moved Up) */}
+        {/* Model Info Overlay*/}
         <div className="absolute inset-0 flex items-start justify-start z-20 px-8 lg:px-16 pt-5 md:pt-5 lg:pt-10">
           <motion.div
             variants={containerVariants}
@@ -246,7 +246,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
               {carModels[activeModel].name}
             </motion.h1>
 
-            {/* Type + Description */}
+            {/* Type and Description */}
             <motion.p 
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-300 mb-6 font-light leading-relaxed max-w-xl text-justify"
@@ -352,7 +352,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
             </p>
           </motion.div>
 
-          {/* Arrows + Scrollable Row */}
+          {/* Arrows and Scrollable Row */}
           <div className="relative w-screen overflow-hidden">
             {/* Left Arrow */}
             <motion.button
@@ -430,7 +430,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
           </div>
         </div>
 
-        {/* ✅ Hide scrollbar globally for this container */}
+        {/* Hide scrollbar globally for this container */}
         <style jsx>{`
           #car-scroll::-webkit-scrollbar {
             display: none;
@@ -442,7 +442,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
         `}</style>
       </section>
 
-      {/* Featured Car Showcase Section - FLEX */}
+      {/* Featured Car Showcase Section */}
       <section
         className="
           w-screen
@@ -523,79 +523,78 @@ const LandingPage = ({ onExplore, onOrder }) => {
       </section>
 
       {/* Super Tourer Style Section */}
-<section
-  className="
-    w-screen
-    grid xl:grid-cols-[60%_35%]
-    md:grid-cols-1
-    items-center
-    gap-8
-    bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950
-    border-t border-gray-700/30
-    py-24 px-4 sm:px-8 md:px-10 lg:px-16
-  "
->
-  {/* Image Group Wrapper */}
-  <div className="w-full flex justify-center md:justify-center items-center">
-    <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-6xl">
-      <img
-        src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/240814_am370_shot_03_rear_100_rgb_72.jpg?mw=1920&rev=3433698f11f343f690aa125e7011710d&extension=webp&hash=52AE28D25C48B14404700EA5993A8F0A"
-        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
-        alt="Vanquish Rear"
-      />
-      <img
-        src="https://www.astonmartin.com/-/media/models---vanquish/final-images/vanquish-seat-all-models-trio.jpg?mw=1920&rev=ef5054c3ef4f4952aaa061104a8dc3d6&extension=webp&hash=D238589245FE52AADC294F4DAD87B3C7"
-        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
-        alt="Vanquish Seat"
-      />
-      <img
-        src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/image20240819140622_side.jpg?mw=1920&rev=b2a2aa32502c4439859f1f3e33366ec0&extension=webp&hash=157943FA07740275FDC82F1344E8EA17"
-        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
-        alt="Vanquish Side"
-      />
-    </div>
-  </div>
+      <section
+        className="
+          w-screen
+          grid xl:grid-cols-[60%_35%]
+          md:grid-cols-1
+          items-center
+          gap-8
+          bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950
+          border-t border-gray-700/30
+          py-24 px-4 sm:px-8 md:px-10 lg:px-16
+        "
+      >
+        {/* Image Group Wrapper */}
+        <div className="w-full flex justify-center md:justify-center items-center">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-6xl">
+            <img
+              src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/240814_am370_shot_03_rear_100_rgb_72.jpg?mw=1920&rev=3433698f11f343f690aa125e7011710d&extension=webp&hash=52AE28D25C48B14404700EA5993A8F0A"
+              className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+              alt="Vanquish Rear"
+            />
+            <img
+              src="https://www.astonmartin.com/-/media/models---vanquish/final-images/vanquish-seat-all-models-trio.jpg?mw=1920&rev=ef5054c3ef4f4952aaa061104a8dc3d6&extension=webp&hash=D238589245FE52AADC294F4DAD87B3C7"
+              className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+              alt="Vanquish Seat"
+            />
+            <img
+              src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/image20240819140622_side.jpg?mw=1920&rev=b2a2aa32502c4439859f1f3e33366ec0&extension=webp&hash=157943FA07740275FDC82F1344E8EA17"
+              className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+              alt="Vanquish Side"
+            />
+          </div>
+        </div>
 
-  {/* Text Section */}
-  <div className="w-full flex flex-col justify-center space-y-6 lg:pl-4 xl:pl-10">
-    <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-left">
-      The world’s first <br /> Super Tourer
-    </h2>
+        {/* Text Section */}
+        <div className="w-full flex flex-col justify-center space-y-6 lg:pl-4 xl:pl-10">
+          <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-left">
+            The world’s first <br /> Super Tourer
+          </h2>
 
-    <p className="text-lg text-gray-400 leading-relaxed text-left">
-      Redefining and reinventing what it means to be a tourer.  
-      A new standard of driver connection and innovative luxury.
-    </p>
+          <p className="text-lg text-gray-400 leading-relaxed text-left">
+            Redefining and reinventing what it means to be a tourer.  
+            A new standard of driver connection and innovative luxury.
+          </p>
 
-    <div className="mt-4 space-y-6">
-      <div>
-        <p className="font-medium text-gray-400 text-sm">
-          Power <span className="text-xs">PS</span>
-        </p>
-        <p className="text-4xl font-extrabold">700</p>
-      </div>
-      <div>
-        <p className="font-medium text-gray-400 text-sm">
-          0-62 MPH <span className="text-xs">S</span>
-        </p>
-        <p className="text-4xl font-extrabold">3.5</p>
-      </div>
-      <div>
-        <p className="font-medium text-gray-400 text-sm">
-          Top Speed <span className="text-xs">MPH</span>
-        </p>
-        <p className="text-4xl font-extrabold">202</p>
-      </div>
+          <div className="mt-4 space-y-6">
+            <div>
+              <p className="font-medium text-gray-400 text-sm">
+                Power <span className="text-xs">PS</span>
+              </p>
+              <p className="text-4xl font-extrabold">700</p>
+            </div>
+            <div>
+              <p className="font-medium text-gray-400 text-sm">
+                0-62 MPH <span className="text-xs">S</span>
+              </p>
+              <p className="text-4xl font-extrabold">3.5</p>
+            </div>
+            <div>
+              <p className="font-medium text-gray-400 text-sm">
+                Top Speed <span className="text-xs">MPH</span>
+              </p>
+              <p className="text-4xl font-extrabold">202</p>
+            </div>
 
-      <p className="text-sm text-gray-500 italic">
-        * DB12 S specifications
-      </p>
-    </div>
-  </div>
-</section>
-
-      
-      {/* 🌟 Premium Features Section */}
+            <p className="text-sm text-gray-500 italic">
+              * DB12 S specifications
+            </p>
+          </div>
+        </div>
+      </section>
+          
+      {/* Premium Features Section */}
       <section className="py-28 w-screen bg-gradient-to-b from-gray-900 via-gray-950 to-black border-t border-gray-800/50">
         <div className="w-full px-6 lg:px-12 text-center">
           <motion.div
@@ -612,8 +611,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
               Discover the craftsmanship and technology that define the pinnacle of automotive excellence.
             </p>
           </motion.div>
-
-          {/* ✅ Fixed 3x2 layout */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -690,10 +687,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
       {/* Footer */}
       <footer className="w-full bg-gradient-to-b from-gray-900 to-black text-gray-300 border-t border-gray-800/50 py-16">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          {/* 5 Columns */}
           <div className="grid lg:grid-cols-5 gap-2 lg:gap-5 mb-12">
-            
-            {/* Explore */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Explore</h4>
               <ul className="space-y-2 text-sm">
@@ -706,8 +700,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
                 <li><a href="#" className="hover:text-cyan-400 transition">Subscribe to Updates</a></li>
               </ul>
             </div>
-
-            {/* Shop */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Shop</h4>
               <ul className="space-y-2 text-sm">
@@ -719,8 +711,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
                 <li><a href="#" className="hover:text-cyan-400 transition">Compare Vehicles</a></li>
               </ul>
             </div>
-
-            {/* Buy */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Buy</h4>
               <ul className="space-y-2 text-sm">
@@ -731,8 +721,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
                 <li><a href="#" className="hover:text-cyan-400 transition">Military Program</a></li>
               </ul>
             </div>
-
-            {/* Own */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Own</h4>
               <ul className="space-y-2 text-sm">
@@ -744,8 +732,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
                 <li><a href="#" className="hover:text-cyan-400 transition">Collision Care</a></li>
               </ul>
             </div>
-
-            {/* Support */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
               <ul className="space-y-2 text-sm">
@@ -757,7 +743,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
                 <li><a href="#" className="hover:text-cyan-400 transition">Battery Info</a></li>
               </ul>
             </div>
-
           </div>
 
           {/* Bottom Section */}
@@ -773,7 +758,6 @@ const LandingPage = ({ onExplore, onOrder }) => {
           </div>
         </div>
       </footer>
-
 
       {/* Custom CSS for Glow Effects */}
       <style jsx>{`

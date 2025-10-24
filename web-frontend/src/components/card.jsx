@@ -1,4 +1,3 @@
-// src/components/card.jsx
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -14,7 +13,7 @@ const Card = ({ icon, title, description, onClick, delay = 0 }) => {
       className="
         relative bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl cursor-pointer group overflow-hidden
         flex flex-col justify-center items-center text-center
-        w-[288px] h-[288px]  /* ✅ exactly 3x3 inches */
+        w-[288px] h-[288px]
         shadow-[0_4px_20px_rgba(0,0,0,0.4)]
       "
     >

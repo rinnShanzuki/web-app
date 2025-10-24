@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PrimaryButton from "../components/primarybutton";
 
-// Import all car images
 import car1 from "../assets/images/car1.jpg";
 import car2 from "../assets/images/car2.jpg";
 import car3 from "../assets/images/car3.jpg";

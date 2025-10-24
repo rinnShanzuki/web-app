@@ -7,7 +7,7 @@ const PrimaryButton = ({
   type = "primary", 
   icon, 
   className = "",
-  size = "default" // 'sm', 'default', 'lg'
+  size = "default"
 }) => {
   const sizeStyles = {
     sm: "px-4 py-2 text-sm rounded-full",
@@ -25,8 +25,6 @@ const PrimaryButton = ({
       "bg-gray-900/80 text-white border border-gray-600 hover:border-cyan-400 hover:bg-gray-800/80 backdrop-blur-sm",
     outline:
       "border-2 border-cyan-500/50 text-cyan-300 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 backdrop-blur-sm",
-    
-    // Now unified with the primary design but with subtle animated glow
     glowing:
       "relative overflow-hidden rounded-xl font-semibold tracking-wide " +
       "bg-gradient-to-r from-cyan-600 to-blue-600 text-white " +
