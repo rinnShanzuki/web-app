@@ -449,7 +449,7 @@ const LandingPage = ({ onExplore, onOrder }) => {
           grid xl:grid-cols-[30%_65%]
           md:grid-cols-1
           items-center
-          gap-4          
+          gap-6       
           bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900
           border-t border-gray-700/30
           py-24 px-5 lg:px-20
@@ -523,76 +523,77 @@ const LandingPage = ({ onExplore, onOrder }) => {
       </section>
 
       {/* Super Tourer Style Section */}
-      <section
-        className="
-          w-screen
-          grid xl:grid-cols-[65%_30%]
-          md:grid-cols-1
-          items-center
-          gap-2       
-          bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950
-          border-t border-gray-700/30
-          py-24 px-6 lg:px-20
-        "
-      >
-        {/* Image Group Wrapper */}
-        <div className="w-full justify-center md:justify-start items-center">
-          <div className="grid grid-cols-3 gap-6 w-[90%] max-w-7xl">
-            <img
-              src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/240814_am370_shot_03_rear_100_rgb_72.jpg?mw=1920&rev=3433698f11f343f690aa125e7011710d&extension=webp&hash=52AE28D25C48B14404700EA5993A8F0A"
-              className="h-[75vh] object-cover rounded-lg shadow-lg"
-              alt="Vanquish Rear"
-            />
-            <img
-              src="https://www.astonmartin.com/-/media/models---vanquish/final-images/vanquish-seat-all-models-trio.jpg?mw=1920&rev=ef5054c3ef4f4952aaa061104a8dc3d6&extension=webp&hash=D238589245FE52AADC294F4DAD87B3C7"
-              className="h-[75vh] object-cover rounded-lg shadow-lg"
-              alt="Vanquish Seat"
-            />
-            <img
-              src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/image20240819140622_side.jpg?mw=1920&rev=b2a2aa32502c4439859f1f3e33366ec0&extension=webp&hash=157943FA07740275FDC82F1344E8EA17"
-              className="h-[75vh] object-cover rounded-lg shadow-lg"
-              alt="Vanquish Side"
-            />
-          </div>
-        </div>
+<section
+  className="
+    w-screen
+    grid xl:grid-cols-[60%_35%]
+    md:grid-cols-1
+    items-center
+    gap-8
+    bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950
+    border-t border-gray-700/30
+    py-24 px-4 sm:px-8 md:px-10 lg:px-16
+  "
+>
+  {/* Image Group Wrapper */}
+  <div className="w-full flex justify-center md:justify-center items-center">
+    <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full max-w-6xl">
+      <img
+        src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/240814_am370_shot_03_rear_100_rgb_72.jpg?mw=1920&rev=3433698f11f343f690aa125e7011710d&extension=webp&hash=52AE28D25C48B14404700EA5993A8F0A"
+        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+        alt="Vanquish Rear"
+      />
+      <img
+        src="https://www.astonmartin.com/-/media/models---vanquish/final-images/vanquish-seat-all-models-trio.jpg?mw=1920&rev=ef5054c3ef4f4952aaa061104a8dc3d6&extension=webp&hash=D238589245FE52AADC294F4DAD87B3C7"
+        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+        alt="Vanquish Seat"
+      />
+      <img
+        src="https://www.astonmartin.com/-/media/new-model-page-design---models/all_models_imagery-for-new-component/vanquish-am370/image20240819140622_side.jpg?mw=1920&rev=b2a2aa32502c4439859f1f3e33366ec0&extension=webp&hash=157943FA07740275FDC82F1344E8EA17"
+        className="xl:h-[70vh] sm:h-[30vh] object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-[1.02]"
+        alt="Vanquish Side"
+      />
+    </div>
+  </div>
 
-        {/* Text Section */}
-        <div className=" w-full flex flex-col justify-center space-y-6">
-          <h2 className="text-4xl text-justify lg:text-5xl font-bold leading-tight">
-            The world’s first <br /> Super Tourer
-          </h2>
+  {/* Text Section */}
+  <div className="w-full flex flex-col justify-center space-y-6 lg:pl-4 xl:pl-10">
+    <h2 className="text-4xl lg:text-5xl font-bold leading-tight text-left">
+      The world’s first <br /> Super Tourer
+    </h2>
 
-          <p className="text-lg text-justify text-gray-400 leading-relaxed">
-            Redefining and reinventing what it means to be a tourer.
-            A new standard of driver connection and innovative luxury.
-          </p>
+    <p className="text-lg text-gray-400 leading-relaxed text-left">
+      Redefining and reinventing what it means to be a tourer.  
+      A new standard of driver connection and innovative luxury.
+    </p>
 
-          <div className="mt-4 space-y-6">
-            <div>
-              <p className="font-medium text-gray-400 text-sm">
-                Power <span className="text-xs">PS</span>
-              </p>
-              <p className="text-4xl font-extrabold">700</p>
-            </div>
-            <div>
-              <p className="font-medium text-gray-400 text-sm">
-                0-62 MPH <span className="text-xs">S</span>
-              </p>
-              <p className="text-4xl font-extrabold">3.5</p>
-            </div>
-            <div>
-              <p className="font-medium text-gray-400 text-sm">
-                Top Speed <span className="text-xs">MPH</span>
-              </p>
-              <p className="text-4xl font-extrabold">202</p>
-            </div>
+    <div className="mt-4 space-y-6">
+      <div>
+        <p className="font-medium text-gray-400 text-sm">
+          Power <span className="text-xs">PS</span>
+        </p>
+        <p className="text-4xl font-extrabold">700</p>
+      </div>
+      <div>
+        <p className="font-medium text-gray-400 text-sm">
+          0-62 MPH <span className="text-xs">S</span>
+        </p>
+        <p className="text-4xl font-extrabold">3.5</p>
+      </div>
+      <div>
+        <p className="font-medium text-gray-400 text-sm">
+          Top Speed <span className="text-xs">MPH</span>
+        </p>
+        <p className="text-4xl font-extrabold">202</p>
+      </div>
 
-            <p className="text-sm text-gray-500 italic">
-              * DB12 S specifications
-            </p>
-          </div>
-        </div>
-      </section>
+      <p className="text-sm text-gray-500 italic">
+        * DB12 S specifications
+      </p>
+    </div>
+  </div>
+</section>
+
       
       {/* 🌟 Premium Features Section */}
       <section className="py-28 w-screen bg-gradient-to-b from-gray-900 via-gray-950 to-black border-t border-gray-800/50">
