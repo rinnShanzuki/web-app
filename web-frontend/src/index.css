@@ -17,6 +17,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -46,16 +51,226 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #920114;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+/* Background colors */
+.dark .bg-white:not(.sidebar-red, .sidebar-red *) {
+  background-color: #1E1D1D !important;
+}
+
+.dark .bg-gray-50:not(.sidebar-red, .sidebar-red *) {
+  background-color: #1E1D1D !important;
+}
+
+.dark .bg-gray-100:not(.sidebar-red, .sidebar-red *) {
+  background-color: #2A2A2A !important;
+}
+
+/* Text colors - All texts become white except red ones */
+.dark .text-gray-800:not(.sidebar-red, .sidebar-red *),
+.dark .text-gray-700:not(.sidebar-red, .sidebar-red *),
+.dark .text-gray-600:not(.sidebar-red, .sidebar-red *),
+.dark .text-gray-900:not(.sidebar-red, .sidebar-red *),
+.dark .text-gray-500:not(.sidebar-red, .sidebar-red *) {
+  color: white !important;
+}
+
+/* Border colors */
+.dark .border-gray-200:not(.sidebar-red, .sidebar-red *),
+.dark .border-gray-300:not(.sidebar-red, .sidebar-red *) {
+  border-color: #374151 !important;
+}
+
+/* Red color transformations for TEXT ONLY */
+.dark .text-\[#3F0008\]:not(.sidebar-red, .sidebar-red *) {
+  color: #D30019 !important;
+}
+
+.dark .text-\[#920114\]:not(.sidebar-red, .sidebar-red *) {
+  color: #D30019 !important;
+}
+
+.dark .text-\[#D30019\]:not(.sidebar-red, .sidebar-red *) {
+  color: #FF0004 !important;
+}
+
+.dark .text-\[#D64219\]:not(.sidebar-red, .sidebar-red *) {
+  color: #FF0004 !important;
+}
+
+/* Background color transformations */
+.dark .bg-\[#3F0008\]:not(.sidebar-red, .sidebar-red *) {
+  background-color: #D30019 !important;
+}
+
+.dark .bg-\[#920114\]:not(.sidebar-red, .sidebar-red *) {
+  background-color: #D30019 !important;
+}
+
+.dark .bg-\[#D30019\]:not(.sidebar-red, .sidebar-red *) {
+  background-color: #FF0004 !important;
+}
+
+.dark .bg-\[#D64219\]:not(.sidebar-red, .sidebar-red *) {
+  background-color: #FF0004 !important;
+}
+
+/* Border color transformations */
+.dark .border-\[#3F0008\]:not(.sidebar-red, .sidebar-red *) {
+  border-color: #D30019 !important;
+}
+
+.dark .border-\[#920114\]:not(.sidebar-red, .sidebar-red *) {
+  border-color: #D30019 !important;
+}
+
+.dark .border-\[#D30019\]:not(.sidebar-red, .sidebar-red *) {
+  border-color: #FF0004 !important;
+}
+
+.dark .border-\[#D64219\]:not(.sidebar-red, .sidebar-red *) {
+  border-color: #FF0004 !important;
+}
+
+/* Hover text color transformations */
+.dark .hover\:text-\[#3F0008\]:hover:not(.sidebar-red, .sidebar-red *) {
+  color: #D30019 !important;
+}
+
+.dark .hover\:text-\[#920114\]:hover:not(.sidebar-red, .sidebar-red *) {
+  color: #D30019 !important;
+}
+
+.dark .hover\:text-\[#D30019\]:hover:not(.sidebar-red, .sidebar-red *) {
+  color: #FF0004 !important;
+}
+
+.dark .hover\:text-\[#D64219\]:hover:not(.sidebar-red, .sidebar-red *) {
+  color: #FF0004 !important;
+}
+
+/* Hover background color transformations */
+.dark .hover\:bg-\[#3F0008\]:hover:not(.sidebar-red, .sidebar-red *) {
+  background-color: #D30019 !important;
+}
+
+.dark .hover\:bg-\[#920114\]:hover:not(.sidebar-red, .sidebar-red *) {
+  background-color: #D30019 !important;
+}
+
+.dark .hover\:bg-\[#D30019\]:hover:not(.sidebar-red, .sidebar-red *) {
+  background-color: #FF0004 !important;
+}
+
+.dark .hover\:bg-\[#D64219\]:hover:not(.sidebar-red, .sidebar-red *) {
+  background-color: #FF0004 !important;
+}
+
+/* Hover border color transformations */
+.dark .hover\:border-\[#3F0008\]:hover:not(.sidebar-red, .sidebar-red *) {
+  border-color: #D30019 !important;
+}
+
+.dark .hover\:border-\[#920114\]:hover:not(.sidebar-red, .sidebar-red *) {
+  border-color: #D30019 !important;
+}
+
+.dark .hover\:border-\[#D30019\]:hover:not(.sidebar-red, .sidebar-red *) {
+  border-color: #FF0004 !important;
+}
+
+.dark .hover\:border-\[#D64219\]:hover:not(.sidebar-red, .sidebar-red *) {
+  border-color: #FF0004 !important;
+}
+
+/* For gradient backgrounds with red colors */
+.dark .from-\[#3F0008\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-from: #D30019 !important;
+  --tw-gradient-to: rgb(211 0 25 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.dark .from-\[#920114\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-from: #D30019 !important;
+  --tw-gradient-to: rgb(211 0 25 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.dark .from-\[#D30019\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-from: #FF0004 !important;
+  --tw-gradient-to: rgb(255 0 4 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.dark .from-\[#D64219\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-from: #FF0004 !important;
+  --tw-gradient-to: rgb(255 0 4 / 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.dark .to-\[#3F0008\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-to: #D30019 !important;
+}
+
+.dark .to-\[#920114\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-to: #D30019 !important;
+}
+
+.dark .to-\[#D30019\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-to: #FF0004 !important;
+}
+
+.dark .to-\[#D64219\]:not(.sidebar-red, .sidebar-red *) {
+  --tw-gradient-to: #FF0004 !important;
+}
+
+/* Keep TopBar icons unchanged in dark mode */
+.dark .invert {
+  filter: invert(0) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #2A2A2A;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 @media (prefers-color-scheme: light) {
