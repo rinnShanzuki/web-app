@@ -130,7 +130,7 @@ export default function ResponderProfileScreen() {
                     "Edit Profile",
                     undefined,
                     undefined,
-                    () => { }
+                    () => router.push("/(responder-forms)/editProfileScreen")
                 )}
                 {renderSettingItem(
                     "lock-closed-outline",

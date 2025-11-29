@@ -21,9 +21,9 @@ export const DEPARTMENTS: Record<DepartmentCode, DepartmentConfig> = {
         name: 'MDRRMO',
         fullName: 'Municipal Disaster Risk Reduction and Management Office',
         colors: {
-            primary: '#D64219',
-            secondary: '#920114',
-            gradient: ['#D64219', '#920114', '#3F0008'],
+            primary: '#DC2626',
+            secondary: '#991B1B',
+            gradient: ['#EF4444', '#DC2626', '#991B1B'],
         },
         icon: {
             filled: require('../../assets/images/mdrrmo-filled.png'),
@@ -35,9 +35,9 @@ export const DEPARTMENTS: Record<DepartmentCode, DepartmentConfig> = {
         name: 'PNP',
         fullName: 'Philippine National Police',
         colors: {
-            primary: '#1E3A8A',
-            secondary: '#1E40AF',
-            gradient: ['#3B82F6', '#1E40AF', '#1E3A8A'],
+            primary: '#DC2626',
+            secondary: '#991B1B',
+            gradient: ['#EF4444', '#DC2626', '#991B1B'],
         },
         icon: {
             filled: require('../../assets/images/pnp-filled.png'),
@@ -61,11 +61,11 @@ export const DEPARTMENTS: Record<DepartmentCode, DepartmentConfig> = {
     RDH: {
         code: 'RDH',
         name: 'RDH',
-        fullName: 'Rural Health Unit',
+        fullName: 'Roxas District Hospital',
         colors: {
-            primary: '#059669',
-            secondary: '#047857',
-            gradient: ['#10B981', '#059669', '#047857'],
+            primary: '#DC2626',
+            secondary: '#991B1B',
+            gradient: ['#EF4444', '#DC2626', '#991B1B'],
         },
         icon: {
             filled: require('../../assets/images/rdh-filled.png'),

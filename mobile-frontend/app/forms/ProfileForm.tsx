@@ -4,45 +4,33 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
   ScrollView,
-  Platform,
-  Modal,
   Image,
+  Switch,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ProfileForm() {
-  const [editMode, setEditMode] = useState(false);
-  const [showEmailModal, setShowEmailModal] = useState(false);
-
   const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [locationSharing, setLocationSharing] = useState(true);
+  const [emergencyAlerts, setEmergencyAlerts] = useState(true);
 
-  const [form, setForm] = useState({
-    email: "juandelacruz@gmail.com",
+  // Mock user data - replace with actual data from your backend
+  const userData = {
     fullName: "Juan Dela Cruz",
-    sex: "Female",
-    birthday: "MM/DD/YYYY",
-    age: "21",
+    email: "juandelacruz@gmail.com",
     contactNumber: "09776527359",
-    street: "Sitio Mangahan",
-    barangay: "Odiong",
-    municipality: "Roxas",
-    province: "Oriental Mindoro",
-  });
-
-  const [backup, setBackup] = useState({ ...form });
-  const [backupImage, setBackupImage] = useState<string | null>(null);
-
-  const [showDatePicker, setShowDatePicker] = useState(false);
+    address: "Sitio Mangahan, Odiong, Roxas, Oriental Mindoro",
+    sex: "Male",
+    age: 21,
+    birthday: "01/15/2003",
+  };
 
   const handlePickImage = async () => {
-    if (!editMode) return;
-
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
       alert("Permission to access photos is needed.");
@@ -61,449 +49,362 @@ export default function ProfileForm() {
     }
   };
 
-  const handleEdit = () => {
-    setBackup(form);
-    setBackupImage(profileImage);
-    setEditMode(true);
-  };
-
-  const handleCancel = () => {
-    setForm(backup);
-    setProfileImage(backupImage);
-    setEditMode(false);
-  };
-
-  const handleSave = () => {
-    setEditMode(false);
-  };
-
-  const onChangeDate = (event: any, selectedDate: any) => {
-    setShowDatePicker(false);
-    if (selectedDate) {
-      const formatted =
-        selectedDate.getMonth() + 1 +
-        "/" +
-        selectedDate.getDate() +
-        "/" +
-        selectedDate.getFullYear();
-      setForm({ ...form, birthday: formatted });
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("@auth_token");
+      router.replace("/(auth)/login");
+    } catch (error) {
+      console.error("Logout error:", error);
     }
   };
 
+  const renderInfoCard = (icon: string, label: string, value: string) => (
+    <View style={styles.infoCard}>
+      <View style={styles.infoHeader}>
+        <Ionicons name={icon as any} size={20} color="#D30019" />
+        <Text style={styles.infoLabel}>{label}</Text>
+      </View>
+      <Text style={styles.infoValue}>{value}</Text>
+    </View>
+  );
+
+  const renderSettingItem = (
+    icon: string,
+    label: string,
+    value?: boolean,
+    onToggle?: (value: boolean) => void,
+    onPress?: () => void
+  ) => (
+    <TouchableOpacity
+      style={styles.settingItem}
+      onPress={onPress}
+      disabled={!!onToggle}
+      activeOpacity={onPress ? 0.7 : 1}
+    >
+      <View style={styles.settingLeft}>
+        <Ionicons name={icon as any} size={22} color="#D30019" />
+        <Text style={styles.settingLabel}>{label}</Text>
+      </View>
+      {onToggle ? (
+        <Switch
+          value={value}
+          onValueChange={onToggle}
+          trackColor={{ false: "#ccc", true: "#FFB3BA" }}
+          thumbColor={value ? "#D30019" : "#f4f3f4"}
+        />
+      ) : (
+        <Ionicons name="chevron-forward" size={20} color="#ccc" />
+      )}
+    </TouchableOpacity>
+  );
+
   return (
-    <ScrollView style={styles.container}>
-      {/* HEADER */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity
-          style={styles.backRow}
-          onPress={() => router.push("/(tabs)/home")}
-        >
-          <Ionicons name="arrow-back" size={20} color="#D30019" />
-          <Text style={styles.backText}>Back to home</Text>
-        </TouchableOpacity>
-
-        {!editMode ? (
-          <TouchableOpacity style={styles.editRow} onPress={handleEdit}>
-            <Text style={styles.editText}>Edit Profile</Text>
-            <Ionicons name="create-outline" size={18} color="#D30019" />
-          </TouchableOpacity>
-        ) : (
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity onPress={handleSave} style={{ marginRight: 15 }}>
-              <Text style={[styles.editText, { fontWeight: "700" }]}>Save</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleCancel}>
-              <Ionicons name="close" size={26} color="#D30019" />
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-
-      {/* USER PHOTO */}
-      <View style={styles.center}>
-        <TouchableOpacity
-          onPress={handlePickImage}
-          disabled={!editMode}
-          activeOpacity={0.8}
-        >
-          <View style={styles.imageWrapper}>
-            {profileImage ? (
-              <Image source={{ uri: profileImage }} style={styles.profileImage} />
-            ) : (
-              <Ionicons
-                name="person"
-                size={80}
-                color="#D30019"
-                style={{ opacity: 0.7 }}
-              />
-            )}
-          </View>
-
-          {editMode && (
-            <Text style={styles.changePhotoText}>Tap to change photo</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-
-      {/* ACCOUNT DETAILS */}
-      <Text style={styles.sectionTitle}>ACCOUNT DETAILS</Text>
-
-      {/* EMAIL FIELD */}
-      <View style={styles.inputGroup}>
-        <Text style={styles.boldLabel}>Email:</Text>
-        {!editMode ? (
-          <Text style={styles.detailValue}>{form.email}</Text>
-        ) : (
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TextInput
-              style={[styles.input, styles.inputWithShadow, { flex: 1 }]}
-              value={form.email}
-              editable={false}
-            />
-            <TouchableOpacity
-              style={styles.addButton}
-              onPress={() => setShowEmailModal(true)}
-            >
-              <Ionicons name="add-circle-outline" size={28} color="#D30019" />
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-
-      {/* EMAIL MODAL */}
-      <Modal
-        visible={showEmailModal}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowEmailModal(false)}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Add New Email Account</Text>
-
-            <TouchableOpacity
-              style={styles.googleButton}
-              onPress={() => setShowEmailModal(false)}
-            >
-              <Ionicons name="logo-google" size={20} color="#fff" />
-              <Text style={styles.googleButtonText}>Sign in with Google</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.modalCloseButton}
-              onPress={() => setShowEmailModal(false)}
-            >
-              <Text style={{ color: "#D30019", fontWeight: "700" }}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <View style={styles.line} />
-
-      {/* PERSONAL DETAILS */}
-      <Text style={styles.sectionTitle}>PERSONAL DETAILS</Text>
-
-      {/* FULL NAME + SEX */}
-      <View style={styles.tableRow}>
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Full Name:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.fullName}</Text>
-          ) : (
-            <TextInput
-              style={[styles.input, styles.inputWithShadow]}
-              value={form.fullName}
-              onChangeText={(v) => setForm({ ...form, fullName: v })}
-            />
-          )}
-        </View>
-
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Sex:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.sex}</Text>
-          ) : (
-            <View style={[styles.input, styles.inputWithShadow, { padding: 0 }]}>
-              <Picker
-                selectedValue={form.sex}
-                onValueChange={(v) => setForm({ ...form, sex: v })}
-                style={{ height: Platform.OS === "ios" ? 36 : 42 }}
-              >
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-              </Picker>
-            </View>
-          )}
-        </View>
-      </View>
-
-      {/* BIRTHDAY + AGE */}
-      <View style={styles.tableRow}>
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Birthday:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.birthday}</Text>
-          ) : (
-            <>
-              <TouchableOpacity
-                onPress={() => setShowDatePicker(true)}
-                style={[styles.input, styles.inputWithShadow]}
-              >
-                <Text>{form.birthday}</Text>
-              </TouchableOpacity>
-
-              {showDatePicker && (
-                <DateTimePicker
-                  value={new Date()}
-                  mode="date"
-                  onChange={onChangeDate}
-                />
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      {/* Profile Header */}
+      <View style={styles.header}>
+        <View style={styles.avatarContainer}>
+          <TouchableOpacity onPress={handlePickImage} activeOpacity={0.8}>
+            <View style={styles.avatar}>
+              {profileImage ? (
+                <Image source={{ uri: profileImage }} style={styles.avatarImage} />
+              ) : (
+                <Ionicons name="person" size={50} color="#fff" />
               )}
-            </>
-          )}
-        </View>
-
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Age:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.age}</Text>
-          ) : (
-            <View style={[styles.input, styles.inputWithShadow, styles.ageInputBox]}>
-              <TouchableOpacity
-                onPress={() =>
-                  setForm({
-                    ...form,
-                    age: String(Math.max(0, Number(form.age) - 1)),
-                  })
-                }
-              >
-                <Ionicons name="remove-circle" size={26} color="#D30019" />
-              </TouchableOpacity>
-
-              <Text style={{ fontSize: 16 }}>{form.age}</Text>
-
-              <TouchableOpacity
-                onPress={() =>
-                  setForm({ ...form, age: String(Number(form.age) + 1) })
-                }
-              >
-                <Ionicons name="add-circle" size={26} color="#D30019" />
-              </TouchableOpacity>
             </View>
-          )}
+            <View style={styles.editAvatarButton}>
+              <Ionicons name="camera" size={18} color="#fff" />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.name}>{userData.fullName}</Text>
+        <Text style={styles.email}>{userData.email}</Text>
+        <View style={styles.citizenBadge}>
+          <Ionicons name="shield-checkmark" size={18} color="#fff" />
+          <Text style={styles.badgeText}>Verified Citizen</Text>
         </View>
       </View>
 
-      {/* CONTACT */}
-      <View style={styles.inputGroup}>
-        <Text style={styles.boldLabel}>Contact Number</Text>
-        {!editMode ? (
-          <Text style={styles.detailValue}>{form.contactNumber}</Text>
-        ) : (
-          <TextInput
-            style={[styles.input, styles.inputWithShadow]}
-            value={form.contactNumber}
-            onChangeText={(v) => setForm({ ...form, contactNumber: v })}
-          />
+      {/* Quick Stats */}
+      <View style={styles.statsContainer}>
+        <View style={styles.statBox}>
+          <Text style={styles.statValue}>5</Text>
+          <Text style={styles.statLabel}>Reports</Text>
+        </View>
+        <View style={styles.statBox}>
+          <Text style={styles.statValue}>2</Text>
+          <Text style={styles.statLabel}>Active</Text>
+        </View>
+        <View style={styles.statBox}>
+          <Text style={styles.statValue}>3</Text>
+          <Text style={styles.statLabel}>Resolved</Text>
+        </View>
+      </View>
+
+      {/* Personal Information */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Personal Information</Text>
+        {renderInfoCard("call-outline", "Contact Number", userData.contactNumber)}
+        {renderInfoCard("location-outline", "Address", userData.address)}
+        <View style={styles.infoRow}>
+          <View style={[styles.infoCard, { flex: 1, marginRight: 8 }]}>
+            <View style={styles.infoHeader}>
+              <Ionicons name="male-female-outline" size={20} color="#D30019" />
+              <Text style={styles.infoLabel}>Sex</Text>
+            </View>
+            <Text style={styles.infoValue}>{userData.sex}</Text>
+          </View>
+          <View style={[styles.infoCard, { flex: 1, marginLeft: 8 }]}>
+            <View style={styles.infoHeader}>
+              <Ionicons name="calendar-outline" size={20} color="#D30019" />
+              <Text style={styles.infoLabel}>Age</Text>
+            </View>
+            <Text style={styles.infoValue}>{userData.age} years</Text>
+          </View>
+        </View>
+        {renderInfoCard("gift-outline", "Birthday", userData.birthday)}
+      </View>
+
+      {/* Settings Section */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Notifications</Text>
+        {renderSettingItem(
+          "notifications-outline",
+          "Push Notifications",
+          notificationsEnabled,
+          setNotificationsEnabled
+        )}
+        {renderSettingItem(
+          "alert-circle-outline",
+          "Emergency Alerts",
+          emergencyAlerts,
+          setEmergencyAlerts
         )}
       </View>
 
-      <View style={styles.line} />
-
-      {/* ADDRESS */}
-      <Text style={styles.sectionTitle}>ADDRESS</Text>
-
-      <View style={styles.tableRow}>
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Street:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.street}</Text>
-          ) : (
-            <TextInput
-              style={[styles.input, styles.inputWithShadow]}
-              value={form.street}
-              onChangeText={(v) => setForm({ ...form, street: v })}
-            />
-          )}
-        </View>
-
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Barangay:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.barangay}</Text>
-          ) : (
-            <TextInput
-              style={[styles.input, styles.inputWithShadow]}
-              value={form.barangay}
-              onChangeText={(v) => setForm({ ...form, barangay: v })}
-            />
-          )}
-        </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Privacy</Text>
+        {renderSettingItem(
+          "location-outline",
+          "Share Location",
+          locationSharing,
+          setLocationSharing
+        )}
       </View>
 
-      <View style={styles.tableRow}>
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Municipality:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.municipality}</Text>
-          ) : (
-            <TextInput
-              style={[styles.input, styles.inputWithShadow]}
-              value={form.municipality}
-              onChangeText={(v) => setForm({ ...form, municipality: v })}
-            />
-          )}
-        </View>
-
-        <View style={styles.tableCell}>
-          <Text style={styles.boldLabel}>Province:</Text>
-          {!editMode ? (
-            <Text style={styles.detailValue}>{form.province}</Text>
-          ) : (
-            <TextInput
-              style={[styles.input, styles.inputWithShadow]}
-              value={form.province}
-              onChangeText={(v) => setForm({ ...form, province: v })}
-            />
-          )}
-        </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Account</Text>
+        {renderSettingItem(
+          "person-outline",
+          "Edit Profile",
+          undefined,
+          undefined,
+          () => router.push("/forms/editProfileForm")
+        )}
+        {renderSettingItem(
+          "lock-closed-outline",
+          "Change Password",
+          undefined,
+          undefined,
+          () => { }
+        )}
+        {renderSettingItem(
+          "help-circle-outline",
+          "Help & Support",
+          undefined,
+          undefined,
+          () => { }
+        )}
       </View>
 
-      <View style={{ height: 50 }} />
+      {/* Logout Button */}
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Ionicons name="log-out-outline" size={22} color="#D30019" />
+        <Text style={styles.logoutText}>Logout</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.version}>Version 1.0.0</Text>
     </ScrollView>
   );
 }
 
-// ---------------------------------------------------
-// STYLES
-// ---------------------------------------------------
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
-
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
   },
-
-  backRow: { flexDirection: "row", alignItems: "center" },
-  backText: { color: "#D30019", fontSize: 16, marginLeft: 4, fontWeight: "500" },
-
-  editRow: { flexDirection: "row", alignItems: "center" },
-  editText: { color: "#D30019", fontSize: 16, marginRight: 6 },
-
-  center: { alignItems: "center", marginTop: 10, marginBottom: 15 },
-
-  imageWrapper: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#D30019",
+  content: {
+    paddingBottom: 100,
+  },
+  header: {
+    alignItems: "center",
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    backgroundColor: "#D30019",
+  },
+  avatarContainer: {
+    position: "relative",
+    marginBottom: 15,
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 3,
+    borderColor: "#fff",
     overflow: "hidden",
-    backgroundColor: "#ffe6e9",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 6,
   },
-
-  profileImage: {
+  avatarImage: {
     width: "100%",
     height: "100%",
-    borderRadius: 100,
+    borderRadius: 50,
   },
-
-  changePhotoText: {
-    marginTop: 8,
-    fontSize: 13,
-    color: "#D30019",
-    fontWeight: "600",
-  },
-
-  sectionTitle: {
-    marginTop: 2,
-    marginBottom: 15,
-    fontWeight: "700",
-    fontSize: 15,
-    color: "#333",
-  },
-
-  boldLabel: { fontSize: 13, color: "#333", fontWeight: "600", marginBottom: 3 },
-
-  detailValue: { fontSize: 14, color: "#666", paddingVertical: 4 },
-
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    fontSize: 14,
-    backgroundColor: "#fff",
-  },
-
-  inputWithShadow: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-
-  inputGroup: { marginBottom: 15 },
-
-  addButton: { marginLeft: 10 },
-
-  line: { height: 1, backgroundColor: "#ddd", marginVertical: 25 },
-
-  tableRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-  },
-
-  tableCell: { width: "48%" },
-
-  ageInputBox: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
-  modalBackground: {
-    flex: 1,
+  editAvatarButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    width: 35,
+    height: 35,
+    borderRadius: 18,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
   },
-
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
+  name: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 5,
   },
-
-  modalTitle: { fontSize: 16, fontWeight: "700", marginBottom: 20 },
-
-  googleButton: {
-    flexDirection: "row",
-    backgroundColor: "#D30019",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 8,
-    alignItems: "center",
+  email: {
+    fontSize: 14,
+    color: "#fff",
+    opacity: 0.9,
     marginBottom: 15,
   },
-
-  googleButtonText: { color: "#fff", fontWeight: "700", marginLeft: 8 },
-
-  modalCloseButton: { padding: 8 },
+  citizenBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  badgeText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+    marginLeft: 6,
+  },
+  statsContainer: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    marginHorizontal: 15,
+    marginTop: -20,
+    borderRadius: 12,
+    padding: 15,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
+  },
+  statBox: {
+    flex: 1,
+    alignItems: "center",
+  },
+  statValue: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#D30019",
+  },
+  statLabel: {
+    fontSize: 12,
+    color: "#666",
+    marginTop: 4,
+  },
+  section: {
+    backgroundColor: "#fff",
+    marginHorizontal: 15,
+    marginTop: 20,
+    borderRadius: 12,
+    padding: 15,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 15,
+  },
+  infoCard: {
+    backgroundColor: "#f9f9f9",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderLeftWidth: 3,
+    borderLeftColor: "#D30019",
+  },
+  infoRow: {
+    flexDirection: "row",
+  },
+  infoHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
+  },
+  infoLabel: {
+    fontSize: 12,
+    color: "#666",
+    marginLeft: 6,
+    fontWeight: "600",
+  },
+  infoValue: {
+    fontSize: 15,
+    color: "#333",
+    fontWeight: "500",
+  },
+  settingItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
+  },
+  settingLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  settingLabel: {
+    fontSize: 15,
+    color: "#333",
+    marginLeft: 12,
+  },
+  logoutButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 15,
+    marginTop: 30,
+    paddingVertical: 15,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "#D30019",
+    backgroundColor: "#fff",
+  },
+  logoutText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 8,
+    color: "#D30019",
+  },
+  version: {
+    textAlign: "center",
+    color: "#999",
+    fontSize: 12,
+    marginTop: 20,
+  },
 });
